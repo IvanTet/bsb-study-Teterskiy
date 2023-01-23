@@ -8,10 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -23,24 +19,25 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> saveUser(@RequestBody UsrDto usrDto) {
-           User user = userService.saveUser(usrDto);
-           return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public ResponseEntity<User> saveUser(@RequestBody UsrDto userDto) {
+        User user = userService.saveUser(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-     public ResponseEntity<User> updateUser(@RequestBody UsrDto usrDto, @PathVariable("id") Long id) {
+    public ResponseEntity<User> updateUser(@RequestBody UsrDto usrDto, @PathVariable("id") Long id) {
         User user = userService.updateUser(usrDto, id);
         return ResponseEntity.ok(user);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getById(@PathVariable("id") Long id) {
-        User user =userService.getUserById(id);
+        User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUserById (@PathVariable("id") Long id) {
+    public void deleteUserById(@PathVariable("id") Long id) {
         userService.deleteById(id);
     }
 }

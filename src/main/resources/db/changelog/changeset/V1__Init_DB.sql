@@ -3,7 +3,7 @@
 --changeset Ivan:1
 create table users
 (
-    id           bigserial not null,
+    id           bigserial                not null,
     created_at   timestamp with time zone not null default current_timestamp,
     email        varchar(50),
     first_name   varchar(50),
