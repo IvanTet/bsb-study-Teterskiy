@@ -13,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +26,6 @@ class UserServiceTest {
     @Autowired
     @Mock
     public UserService userService;
-    public User user;
     @MockBean
     public UserRepository userRepository;
     public UsrDto userDto = new UsrDto(
@@ -38,22 +34,17 @@ class UserServiceTest {
             "c",
             "d"
     );
-    private MockMvc mockMvc;
-
     @Test
-    public void saveUserTest() throws Exception {
+    public void saveUserTest_shouldCallRepositorySaveMethod() {
 
         User user = new User(userDto);
-        user.setId(1);
-        user.setUpdatedAt(LocalDateTime.now());
-        user.setCreatedAt(LocalDateTime.now());
         Mockito.doReturn(user).when(userRepository).save(ArgumentMatchers.any());
         Assertions.assertNotNull(userService.saveUser(userDto));
 
     }
 
     @Test
-    void findById() {
+    void findById_shouldReturnCorrectUser() {
         User userId1 = new User(userDto);
         userDto.setFirstName("gf");
         userDto.setLastName("sas");
@@ -72,7 +63,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findAll() {
+    void findAll_ShouldReturnCorrectList() {
         User userId1 = new User(userDto);
         userDto.setFirstName("gf");
         userDto.setLastName("sas");
@@ -88,7 +79,7 @@ class UserServiceTest {
     }
 
     @Test
-    void updateUser() {
+    void updateUser_shouldCorrectlyChangeUserInformation() {
         User user1 = new User(userDto);
         userDto.setFirstName("gf");
         userDto.setLastName("sas");
@@ -107,7 +98,7 @@ class UserServiceTest {
     }
 
     @Test
-    void deleteById() {
+    void deleteById_ShouldCallRepositoryServiceMethod() {
 
         userService.deleteById((long)1);
         Mockito.verify(userRepository , atLeastOnce()).deleteById((long)1);
