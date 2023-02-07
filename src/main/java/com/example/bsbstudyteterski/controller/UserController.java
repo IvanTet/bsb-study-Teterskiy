@@ -33,7 +33,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<User> getById(@PathVariable("id") Long id) {
         User user =userService.getUserById(id);
         return ResponseEntity.ok(user);
