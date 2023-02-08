@@ -3,9 +3,11 @@ package com.example.bsbstudyteterski.model;
 import com.example.bsbstudyteterski.dto.UsrDto;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -14,7 +16,7 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long user_id;
 
     @Column(name = "firstName")
     private String firstName;
@@ -34,6 +36,15 @@ public class User {
     @Column(name = "changedAt")
     private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "document_id",
+                fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL)
+    List<Document> documents = new ArrayList<>();
+
+    @OneToMany(mappedBy = "address_id",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    List<Address> addresses = new ArrayList<>();
 
     public User(UsrDto usrDto) {
         this.email = usrDto.getEmail();
@@ -47,7 +58,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(email, user.email);
+        return user_id == user.user_id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(email, user.email);
     }
 
 }

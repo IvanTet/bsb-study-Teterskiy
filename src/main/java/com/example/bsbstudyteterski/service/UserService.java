@@ -43,7 +43,7 @@ public class UserService {
         user.setEmail(usrDto.getEmail());
         user.setPhoneNumber(usrDto.getPhoneNumber());
         user.setUpdatedAt(LocalDateTime.now());
-        user.setId(id);
+        user.setUser_id(id);
         return this.userRepository.save(user);
     }
 

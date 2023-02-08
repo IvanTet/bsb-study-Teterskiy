@@ -49,8 +49,8 @@ class UserServiceTest {
         userDto.setFirstName("gf");
         userDto.setLastName("sas");
         User userId2 = new User(userDto);
-        userId1.setId(1);
-        userId2.setId(2);
+        userId1.setUser_id(1);
+        userId2.setUser_id(2);
 
         Mockito.doReturn(Optional.of(userId1)).when(userRepository).findById((long) 1);
         Mockito.doReturn(Optional.of(userId2)).when(userRepository).findById((long) 2);
@@ -68,8 +68,8 @@ class UserServiceTest {
         userDto.setFirstName("gf");
         userDto.setLastName("sas");
         User userId2 = new User(userDto);
-        userId1.setId(1);
-        userId2.setId(2);
+        userId1.setUser_id(1);
+        userId2.setUser_id(2);
 
         Mockito.doReturn(List.of(userId1, userId2)).when(userRepository).findAll();
 
@@ -85,15 +85,15 @@ class UserServiceTest {
         userDto.setLastName("sas");
         User user2 = new User(userDto);
 
-        user1.setId(1);
-        user2.setId(2);
+        user1.setUser_id(1);
+        user2.setUser_id(2);
 
 
         Mockito.doReturn(Optional.of(user1)).when(userRepository).findById((long) 1);
         Mockito.doReturn(user2).when(userRepository).save(any());
 
         Assertions.assertNotEquals(user1, userService.updateUser(userDto, (long)1));
-        user2.setId(1);
+        user2.setUser_id(1);
         Mockito.verify(userRepository).save(user2);
     }
 
