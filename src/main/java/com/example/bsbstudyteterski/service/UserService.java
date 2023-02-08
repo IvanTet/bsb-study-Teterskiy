@@ -26,14 +26,8 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    public User saveUser(UsrDto usrDto) {
-        User user = new User();
-        user.setFirstName(usrDto.getFirstName());
-        user.setLastName(usrDto.getLastName());
-        user.setEmail(usrDto.getEmail());
-        user.setPhoneNumber(usrDto.getPhoneNumber());
-        user.setCreatedAt(LocalDateTime.now());
-        user.setUpdatedAt(LocalDateTime.now());
+    public User saveUser(UsrDto userDto) {
+        User user = new User(userDto);
         return userRepository.save(user);
     }
 

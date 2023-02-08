@@ -1,10 +1,12 @@
 package com.example.bsbstudyteterski.model;
 
+import com.example.bsbstudyteterski.dto.UsrDto;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -31,4 +33,21 @@ public class User {
 
     @Column(name = "changedAt")
     private LocalDateTime updatedAt;
+
+
+    public User(UsrDto usrDto) {
+        this.email = usrDto.getEmail();
+        this.firstName = usrDto.getFirstName();
+        this.lastName = usrDto.getLastName();
+        this.phoneNumber = usrDto.getPhoneNumber();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(email, user.email);
+    }
+
 }
