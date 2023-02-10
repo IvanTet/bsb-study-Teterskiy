@@ -32,7 +32,9 @@ class UserServiceTest {
             "a",
             "b",
             "c",
-            "d"
+            "d",
+            "f",
+            "g"
     );
     @Test
     public void saveUserTest_shouldCallRepositorySaveMethod() {

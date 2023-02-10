@@ -11,7 +11,13 @@ public class UsrDto {
     private String email;
     private String phoneNumber;
 
-    public UsrDto(String firstName, String lastName, String email, String phoneNumber) {
+    private String password;
+
+    private String login;
+
+    public UsrDto(String firstName, String lastName, String email, String phoneNumber, String password, String login) {
+        this.password = password;
+        this.login = login;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -5,6 +5,8 @@ create table users
 (
     user_id           bigserial                not null,
     created_at   timestamp with time zone not null default current_timestamp,
+    password     varchar(50),
+    login        varchar(50) unique,
     email        varchar(50),
     first_name   varchar(50),
     last_name    varchar(50),

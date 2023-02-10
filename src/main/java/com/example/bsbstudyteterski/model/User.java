@@ -27,6 +27,11 @@ public class User {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "login")
+    private String login;
     @Column(name = "email")
     private String email;
 
@@ -51,6 +56,8 @@ public class User {
         this.firstName = usrDto.getFirstName();
         this.lastName = usrDto.getLastName();
         this.phoneNumber = usrDto.getPhoneNumber();
+        this.login = usrDto.getLogin();
+        this.password = usrDto.getPassword();
     }
 
     @Override
@@ -58,7 +65,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return user_id == user.user_id && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(email, user.email);
+        return user_id == user.user_id && Objects.equals(firstName, user.firstName)
+                && Objects.equals(lastName, user.lastName)
+                && Objects.equals(phoneNumber, user.phoneNumber)
+                && Objects.equals(email, user.email)
+                && Objects.equals(login, user.login)
+                && Objects.equals(password, user.password);
     }
 
 }
