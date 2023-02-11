@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import java.util.*;
+
+import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeastOnce;
@@ -36,6 +38,7 @@ class UserServiceTest {
             "f",
             "g"
     );
+
     @Test
     public void saveUserTest_shouldCallRepositorySaveMethod() {
 
@@ -94,7 +97,7 @@ class UserServiceTest {
         Mockito.doReturn(Optional.of(user1)).when(userRepository).findById((long) 1);
         Mockito.doReturn(user2).when(userRepository).save(any());
 
-        Assertions.assertNotEquals(user1, userService.updateUser(userDto, (long)1));
+        Assertions.assertNotEquals(user1, userService.updateUser(userDto, (long) 1));
         user2.setUser_id(1);
         Mockito.verify(userRepository).save(user2);
     }
@@ -102,8 +105,8 @@ class UserServiceTest {
     @Test
     void deleteById_ShouldCallRepositoryServiceMethod() {
 
-        userService.deleteById((long)1);
-        Mockito.verify(userRepository , atLeastOnce()).deleteById((long)1);
+        userService.deleteById((long) 1);
+        Mockito.verify(userRepository, atLeastOnce()).deleteById((long) 1);
 
     }
 }

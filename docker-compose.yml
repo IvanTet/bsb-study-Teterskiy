@@ -12,11 +12,3 @@ services:
       PGDATA: /postgresql/data
       POSTGRES_PASSWORD: root
       POSTGRES_USER: root
-  pg-admin:
-    image: dpage/pgadmin4
-    ports:
-      - target: 80
-        published: 5050
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@mail.ru
-      PGADMIN_DEFAULT_PASSWORD: admin

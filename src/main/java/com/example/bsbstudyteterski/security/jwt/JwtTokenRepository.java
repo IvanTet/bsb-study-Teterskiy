@@ -74,4 +74,4 @@ public class JwtTokenRepository implements CsrfTokenRepository {
             response.setHeader("x-csrf-token", "");
     }
 
-    }
+}

@@ -3,7 +3,6 @@ package com.example.bsbstudyteterski.model;
 import com.example.bsbstudyteterski.dto.UsrDto;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,42 +13,33 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long user_id;
-
-    @Column(name = "firstName")
-    private String firstName;
-
-    @Column(name = "lastName")
-    private String lastName;
-
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "login")
-    private String login;
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "createdAt")
-    private LocalDateTime createdAt;
-
-    @Column(name = "changedAt")
-    private LocalDateTime updatedAt;
-
     @OneToMany(mappedBy = "document_id",
-                fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL)
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     List<Document> documents = new ArrayList<>();
-
     @OneToMany(mappedBy = "address_id",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     List<Address> addresses = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long user_id;
+    @Column(name = "firstName")
+    private String firstName;
+    @Column(name = "lastName")
+    private String lastName;
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "login")
+    private String login;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "createdAt")
+    private LocalDateTime createdAt;
+    @Column(name = "changedAt")
+    private LocalDateTime updatedAt;
 
     public User(UsrDto usrDto) {
         this.email = usrDto.getEmail();

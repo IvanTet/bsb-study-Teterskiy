@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
         return user.get();
     }
 
-    public User getByLogin(String login){
+    public User getByLogin(String login) {
         return this.userRepository.findByLogin(login);
     }
 

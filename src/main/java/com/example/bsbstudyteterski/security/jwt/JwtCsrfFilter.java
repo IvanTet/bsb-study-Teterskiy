@@ -18,6 +18,9 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import java.io.IOException;
 
 public class JwtCsrfFilter extends OncePerRequestFilter {
+
+    private final String INVALID_CSRF_TOKEN_FOUND_FOR = "Invalid CSRF token found for ";
+
     private final CsrfTokenRepository tokenRepository;
 
     private final HandlerExceptionResolver resolver;
@@ -62,7 +65,7 @@ public class JwtCsrfFilter extends OncePerRequestFilter {
                     resolver.resolveException(request, response, null, new InvalidCsrfTokenException(csrfToken, actualToken));
             } catch (JwtException e) {
                 if (this.logger.isDebugEnabled()) {
-                    this.logger.debug("Invalid CSRF token found for " + UrlUtils.buildFullRequestUrl(request));
+                    this.logger.debug(INVALID_CSRF_TOKEN_FOUND_FOR + UrlUtils.buildFullRequestUrl(request));
                 }
 
                 if (missingToken) {
