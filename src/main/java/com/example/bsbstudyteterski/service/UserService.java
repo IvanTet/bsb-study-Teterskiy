@@ -1,6 +1,7 @@
 package com.example.bsbstudyteterski.service;
 
 import com.example.bsbstudyteterski.dto.UsrDto;
+import com.example.bsbstudyteterski.mapper.UserMapper;
 import com.example.bsbstudyteterski.model.User;
 import com.example.bsbstudyteterski.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,9 +19,11 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserMapper mapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper mapper) {
         this.userRepository = userRepository;
+        this.mapper = mapper;
     }
 
     public Optional<User> findById(Long id) {
@@ -32,7 +35,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User saveUser(UsrDto userDto) {
-        User user = new User(userDto);
+        User user = mapper.toUser(userDto);
         return userRepository.save(user);
     }
 

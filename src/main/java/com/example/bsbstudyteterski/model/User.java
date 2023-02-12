@@ -1,6 +1,5 @@
 package com.example.bsbstudyteterski.model;
 
-import com.example.bsbstudyteterski.dto.UsrDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -41,6 +40,7 @@ public class User {
     @Column(name = "changedAt")
     private LocalDateTime updatedAt;
 
+/*
     public User(UsrDto usrDto) {
         this.email = usrDto.getEmail();
         this.firstName = usrDto.getFirstName();
@@ -49,6 +49,7 @@ public class User {
         this.login = usrDto.getLogin();
         this.password = usrDto.getPassword();
     }
+*/
 
     @Override
     public boolean equals(Object o) {
