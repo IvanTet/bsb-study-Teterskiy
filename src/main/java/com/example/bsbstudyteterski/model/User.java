@@ -12,10 +12,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User {
+
     @OneToMany(mappedBy = "document_id",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     List<Document> documents = new ArrayList<>();
+
     @OneToMany(mappedBy = "address_id",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
@@ -40,16 +42,23 @@ public class User {
     @Column(name = "changedAt")
     private LocalDateTime updatedAt;
 
-/*
-    public User(UsrDto usrDto) {
-        this.email = usrDto.getEmail();
-        this.firstName = usrDto.getFirstName();
-        this.lastName = usrDto.getLastName();
-        this.phoneNumber = usrDto.getPhoneNumber();
-        this.login = usrDto.getLogin();
-        this.password = usrDto.getPassword();
+    /*
+        public User(UsrDto usrDto) {
+            this.email = usrDto.getEmail();
+            this.firstName = usrDto.getFirstName();
+            this.lastName = usrDto.getLastName();
+            this.phoneNumber = usrDto.getPhoneNumber();
+            this.login = usrDto.getLogin();
+            this.password = usrDto.getPassword();
+        }
+    */
+    public void addAddress(Address address) {
+        this.addresses.add(address);
     }
-*/
+
+    public void addDocument(Document document) {
+        this.documents.add(document);
+    }
 
     @Override
     public boolean equals(Object o) {

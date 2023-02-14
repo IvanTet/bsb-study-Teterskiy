@@ -24,6 +24,9 @@ public class JwtTokenRepository implements CsrfTokenRepository {
     @Getter
     private String secret;
 
+    private String DEFAULT_HEADER_NAME = "x-csrf-token";
+    private String DEFAULT_PARAMETER_NAME = "_csrf";
+
     public JwtTokenRepository() {
         this.secret = "springrest";
     }
@@ -48,7 +51,7 @@ public class JwtTokenRepository implements CsrfTokenRepository {
             e.printStackTrace();
             //ignore
         }
-        return new DefaultCsrfToken("x-csrf-token", "_csrf", token);
+        return new DefaultCsrfToken(DEFAULT_HEADER_NAME, DEFAULT_PARAMETER_NAME, token);
     }
 
     @Override
@@ -70,8 +73,8 @@ public class JwtTokenRepository implements CsrfTokenRepository {
     }
 
     public void clearToken(HttpServletResponse response) {
-        if (response.getHeaderNames().contains("x-csrf-token"))
-            response.setHeader("x-csrf-token", "");
+        if (response.getHeaderNames().contains(DEFAULT_HEADER_NAME))
+            response.setHeader(DEFAULT_HEADER_NAME, "");
     }
 
 }
