@@ -7,7 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {AddressMapper.class, DocumentMapper.class}, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+
+@Mapper(componentModel = "spring", uses = {AddressMapper.class, DocumentMapper.class}, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);

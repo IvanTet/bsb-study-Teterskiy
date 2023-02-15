@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -37,10 +38,14 @@ public class User {
     private String login;
     @Column(name = "email")
     private String email;
+
     @Column(name = "createdAt")
     private LocalDateTime createdAt;
+
     @Column(name = "changedAt")
     private LocalDateTime updatedAt;
+
+    private Set<Role> roles;
 
     /*
         public User(UsrDto usrDto) {

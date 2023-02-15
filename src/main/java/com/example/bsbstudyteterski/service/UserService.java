@@ -2,6 +2,7 @@ package com.example.bsbstudyteterski.service;
 
 import com.example.bsbstudyteterski.dto.UsrDto;
 import com.example.bsbstudyteterski.mapper.UserMapper;
+import com.example.bsbstudyteterski.model.Role;
 import com.example.bsbstudyteterski.model.User;
 import com.example.bsbstudyteterski.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -44,8 +42,10 @@ public class UserService implements UserDetailsService {
         return user.get();
     }
 
-    public User getByLogin(String login) {
-        return this.userRepository.findByLogin(login);
+    public Optional<User> getByLogin(String login) {
+        User user = userRepository.findByLogin(login).get();
+        user.setRoles(Collections.singleton(Role.ADMIN));
+        return Optional.of(user);
     }
 
     public User updateUser(UsrDto usrDto, Long id) {
@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = getByLogin(login);
+        User user = getByLogin(login).get();
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException(String.format("User %s is not found", login));
         }

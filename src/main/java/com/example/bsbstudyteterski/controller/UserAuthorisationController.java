@@ -1,36 +1,51 @@
 package com.example.bsbstudyteterski.controller;
 
-import com.example.bsbstudyteterski.model.User;
+import com.example.bsbstudyteterski.security.jwt.JwtAuthentication;
+import com.example.bsbstudyteterski.security.jwt.JwtRequest;
+import com.example.bsbstudyteterski.security.jwt.JwtResponse;
+import com.example.bsbstudyteterski.security.jwt.RefreshJwtRequest;
+import com.example.bsbstudyteterski.service.AuthService;
 import com.example.bsbstudyteterski.service.UserService;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Objects;
+import jakarta.security.auth.message.AuthException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class UserAuthorisationController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    public UserAuthorisationController(UserService userService) {
+    private final AuthService authService;
+
+    public UserAuthorisationController(UserService userService, AuthService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
-    @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody User getAuthUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null) {
-            return null;
-        }
-        Object principal = auth.getPrincipal();
-        User user = (principal instanceof User) ? (User) principal : null;
-        return Objects.nonNull(user) ? this.userService.getByLogin(user.getLogin()) : null;
+    @PreAuthorize("hasAuthority('user')")
+    @GetMapping("/user")
+    public ResponseEntity<String> helloUser() {
+        final JwtAuthentication authInfo = authService.getAuthInfo();
+        return ResponseEntity.ok("Hello user " + authInfo.getPrincipal() + "!");
     }
 
+    @PostMapping("/user/login")
+    public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest authRequest) throws AuthException {
+        final JwtResponse token = authService.login(authRequest);
+        return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/user/token")
+    public ResponseEntity<JwtResponse> getNewAccessToken(@RequestBody RefreshJwtRequest request) throws AuthException {
+        final JwtResponse token = authService.getAccessToken(request.getRefreshToken());
+        return ResponseEntity.ok(token);
+    }
+
+    @PostMapping("/user/refresh")
+    public ResponseEntity<JwtResponse> getNewRefreshToken(@RequestBody RefreshJwtRequest request) throws AuthException {
+        final JwtResponse token = authService.refresh(request.getRefreshToken());
+        return ResponseEntity.ok(token);
+    }
 }
