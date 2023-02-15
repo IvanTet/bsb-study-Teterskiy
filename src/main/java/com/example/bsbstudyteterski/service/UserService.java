@@ -43,9 +43,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Optional<User> getByLogin(String login) {
-        User user = userRepository.findByLogin(login).get();
-        user.setRoles(Collections.singleton(Role.ADMIN));
-        return Optional.of(user);
+        return userRepository.findByLogin(login);
     }
 
     public User updateUser(UsrDto usrDto, Long id) {

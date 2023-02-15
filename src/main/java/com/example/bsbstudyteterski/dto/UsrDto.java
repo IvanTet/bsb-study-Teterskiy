@@ -2,6 +2,8 @@ package com.example.bsbstudyteterski.dto;
 
 import com.example.bsbstudyteterski.model.Address;
 import com.example.bsbstudyteterski.model.Document;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -11,13 +13,16 @@ import java.util.List;
 /*@Configuration*/
 public class UsrDto {
 
+    @Pattern(regexp = "[a-zA-Z]")
     private String firstName;
+    @Pattern(regexp = "[a-zA-Z]")
     private String lastName;
     private String email;
     private String phoneNumber;
 
     private String password;
 
+    @NotBlank
     private String login;
 
     List<Document> documents = new ArrayList<>();

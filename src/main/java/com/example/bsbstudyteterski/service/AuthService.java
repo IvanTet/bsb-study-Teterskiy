@@ -6,7 +6,7 @@ import com.example.bsbstudyteterski.security.jwt.JwtProvider;
 import com.example.bsbstudyteterski.security.jwt.JwtRequest;
 import com.example.bsbstudyteterski.security.jwt.JwtResponse;
 import io.jsonwebtoken.Claims;
-import jakarta.security.auth.message.AuthException;
+import javax.security.auth.message.AuthException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

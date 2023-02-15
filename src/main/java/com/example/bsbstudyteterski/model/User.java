@@ -1,13 +1,10 @@
 package com.example.bsbstudyteterski.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -45,7 +42,9 @@ public class User {
     @Column(name = "changedAt")
     private LocalDateTime updatedAt;
 
-    private Set<Role> roles;
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     /*
         public User(UsrDto usrDto) {
@@ -78,4 +77,13 @@ public class User {
                 && Objects.equals(password, user.password);
     }
 
+    public Set<Role> getRoles() {
+        Set<Role> roles = new HashSet<>();
+        roles.add(this.getRole());
+        return roles;
+    }
+
+    private Role getRole() {
+        return this.role;
+    }
 }

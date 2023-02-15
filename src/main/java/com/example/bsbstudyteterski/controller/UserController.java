@@ -4,6 +4,7 @@ package com.example.bsbstudyteterski.controller;
 import com.example.bsbstudyteterski.dto.UsrDto;
 import com.example.bsbstudyteterski.model.User;
 import com.example.bsbstudyteterski.service.UserService;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,13 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> saveUser(@RequestBody UsrDto userDto) {
+    public ResponseEntity<User> saveUser(@Valid @RequestBody UsrDto userDto) {
         User user = userService.saveUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@RequestBody UsrDto usrDto, @PathVariable("id") Long id) {
+    public ResponseEntity<User> updateUser(@Valid @RequestBody UsrDto usrDto, @PathVariable("id") Long id) {
         User user = userService.updateUser(usrDto, id);
         return ResponseEntity.ok(user);
     }

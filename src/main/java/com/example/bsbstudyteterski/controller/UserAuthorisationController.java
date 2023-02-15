@@ -6,7 +6,7 @@ import com.example.bsbstudyteterski.security.jwt.JwtResponse;
 import com.example.bsbstudyteterski.security.jwt.RefreshJwtRequest;
 import com.example.bsbstudyteterski.service.AuthService;
 import com.example.bsbstudyteterski.service.UserService;
-import jakarta.security.auth.message.AuthException;
+import javax.security.auth.message.AuthException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
