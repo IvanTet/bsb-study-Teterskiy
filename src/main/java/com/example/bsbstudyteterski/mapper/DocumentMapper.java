@@ -10,9 +10,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(uses = UserMapper.class)
 public interface DocumentMapper {
 
-   DocumentMapper INSTANCE = Mappers.getMapper(DocumentMapper.class);
-
    @Mapping(target = "user", ignore = true)
    DocumentDTO toDTO(Document document);
-
 }

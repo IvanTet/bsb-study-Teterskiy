@@ -2,10 +2,12 @@ package com.example.bsbstudyteterski.dto;
 
 import com.example.bsbstudyteterski.model.Address;
 import com.example.bsbstudyteterski.model.Document;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import lombok.Data;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 

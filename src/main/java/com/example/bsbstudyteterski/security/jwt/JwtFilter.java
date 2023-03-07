@@ -15,12 +15,13 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends GenericFilterBean {
 
-    private static final String AUTHORIZATION = "Authorization";
 
     private final JwtProvider jwtProvider;
 

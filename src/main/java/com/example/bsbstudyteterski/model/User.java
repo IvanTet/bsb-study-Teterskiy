@@ -10,7 +10,7 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 public class User {
-
+//todo добавить сущность (логин пароль), для импл userDetails
     @OneToMany(mappedBy = "document_id",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
@@ -46,16 +46,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    /*
-        public User(UsrDto usrDto) {
-            this.email = usrDto.getEmail();
-            this.firstName = usrDto.getFirstName();
-            this.lastName = usrDto.getLastName();
-            this.phoneNumber = usrDto.getPhoneNumber();
-            this.login = usrDto.getLogin();
-            this.password = usrDto.getPassword();
-        }
-    */
     public void addAddress(Address address) {
         this.addresses.add(address);
     }

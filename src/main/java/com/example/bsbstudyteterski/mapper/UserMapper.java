@@ -11,8 +11,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring", uses = {AddressMapper.class, DocumentMapper.class}, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface UserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
     @Mapping(target = "documents", ignore = true)
     @Mapping(target = "addresses", ignore = true)
     UsrDto toUserDto(User user);
